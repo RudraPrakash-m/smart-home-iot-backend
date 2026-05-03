@@ -60,13 +60,13 @@ const client = mqtt.connect("mqtt://broker.hivemq.com");
 
 const CONTROL_TOPIC = "rudra_home/control";
 const ALERT_TOPIC = "rudra_home/alert";
-const ONLINE_TOPIC = "rudra_home/online";
+// const ONLINE_TOPIC = "rudra_home/online";
 
 client.on("connect", () => {
   console.log("✅ MQTT Connected");
 
   client.subscribe(ALERT_TOPIC);
-  client.subscribe(ONLINE_TOPIC);
+  // client.subscribe(ONLINE_TOPIC);
 });
 
 // ================= MQTT RECEIVE =================
@@ -100,9 +100,9 @@ client.on("message", async (topic, message) => {
   }
 
   // ===== DEVICE STATUS =====
-  if (topic === ONLINE_TOPIC) {
-    io.emit("device", msg);
-  }
+  // if (topic === ONLINE_TOPIC) {
+  //   io.emit("device", msg);
+  // }
 });
 
 // ================= API =================
