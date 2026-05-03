@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
+require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -17,10 +18,15 @@ const io = new Server(server, {
 const PORT = 5000;
 
 // ================= MONGODB =================
+const MONGO_URI = process.env.CONNECTION_STRING;
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/smart_home")
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.log("❌ DB Error:", err));
+  .connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected (Atlas)"))
+  .catch((err) => {
+    console.error("❌ DB Error:", err.message);
+    process.exit(1);
+  });
 
 // ================= MODELS =================
 const Alert = mongoose.model("Alert", {
